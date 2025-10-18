@@ -1,47 +1,49 @@
 import { useState } from "react";
 
-export default function NewCard({ onAddPlaceSubmit, onAfterSubmit }) {
+export default function NewCard({ onAddPlaceSubmit }) {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    await onAddPlaceSubmit?.({ name, link });
+  function handleSubmit(e) {
+    e.preventDefault();                   
+    if (!name.trim() || !link.trim()) return;
+    onAddPlaceSubmit?.({ name: name.trim(), link: link.trim() });
     setName("");
     setLink("");
-    onAfterSubmit?.(); 
   }
 
   return (
-    <form className="popup__form" onSubmit={handleSubmit} noValidate>
-      <label className="popup__field">
+    <form className="popup__form" name="new-card-form" onSubmit={handleSubmit} noValidate>
+      
+      <div className="popup__field">
         <input
           className="popup__input"
-          placeholder="Título"
+          type="text"
           name="card-name"
-          minLength="1"
+          placeholder="Título"
+          minLength="2"
           maxLength="30"
           required
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
         <span className="popup__input-error" />
-      </label>
+      </div>
 
-      <label className="popup__field">
+      <div className="popup__field">
         <input
           className="popup__input"
-          placeholder="Enlace de la imagen"
-          name="link"
           type="url"
+          name="card-link"
+          placeholder="Enlace de la imagen"
           required
           value={link}
-          onChange={e => setLink(e.target.value)}
+          onChange={(e) => setLink(e.target.value)}
         />
         <span className="popup__input-error" />
-      </label>
+      </div>
 
-      <button className="popup__button popup__button_add" type="submit">
+      <button className="popup__button popup__button_save" type="submit">
         Guardar
       </button>
     </form>

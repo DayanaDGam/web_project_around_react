@@ -2,14 +2,17 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import avatarFallback from "../../images/avatar.jpg";
+
 import EditProfile from "../EditProfile/EditProfile.jsx";
+import EditAvatar from "../Avatar/EditAvatar.jsx";
 import NewCard from "../NewCard/NewCard.jsx";
+import ImagePopup from "../ImagePopup/ImagePopup.jsx";
 import Card from "../Card/Card.jsx";
+import Popup from "./Popup.jsx"; 
 
 export default function Main({
   onOpenPopup,
-  onClosePopup,     
-  popup,            
+  onClosePopup,
   cards,
   onCardLike,
   onCardDelete,
@@ -17,16 +20,25 @@ export default function Main({
 }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  const openEditProfile = () =>
-    onOpenPopup({ title: "Editar perfil", children: <EditProfile /> });
+  const editProfilePopup = {
+    title: "Editar perfil",
+    children: <EditProfile />,
+  };
 
-  const openNewCard = () =>
-    onOpenPopup({
-      title: "Nuevo lugar",
-      children: <NewCard onAddPlaceSubmit={onAddPlaceSubmit} />,
-    });
+  const editAvatarPopup = {
+    title: "Editar avatar",
+    children: <EditAvatar />,
+  };
 
-  const openEditAvatar = openEditProfile;
+  const newCardPopup = {
+    title: "Nuevo lugar",
+    children: <NewCard onAddPlaceSubmit={onAddPlaceSubmit} />,
+  };
+
+  const getImagePopup = (card) => ({
+    title: null,
+    children: <ImagePopup card={card} onClose={onClosePopup} />,
+  });
 
   return (
     <main className="main">
@@ -51,24 +63,16 @@ export default function Main({
         <button
           className="main__button main__button_edit"
           type="button"
-          onClick={openEditProfile}
+          onClick={() => onOpenPopup(editProfilePopup)}
           aria-label="Editar perfil"
         />
         <button
           className="main__button main__button_add"
           type="button"
-          onClick={openNewCard}
-          aria-label="Agregar tarjeta"
+          onClick={() => onOpenPopup(newCardPopup)}
+          aria-label="Nuevo lugar"
         >
           +
-        </button>
-        <button
-          className="main__button main__button_avatar"
-          type="button"
-          onClick={openEditAvatar}
-          aria-label="Editar avatar (en el mismo popup)"
-        >
-          🖼️
         </button>
       </section>
 
@@ -78,12 +82,19 @@ export default function Main({
             <Card
               key={card._id}
               card={card}
-              onLikeClick={() => onCardLike(card)}
-              onDeleteClick={() => onCardDelete(card)}
+              onImageClick={(c) => onOpenPopup(getImagePopup(c))}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </ul>
       </section>
+
+      <div style={{ display: "none" }}>
+        <Popup title="" onClose={() => {}}>
+          {null}
+        </Popup>
+      </div>
     </main>
   );
 }

@@ -62,7 +62,6 @@ export default function EditProfile() {
         <span className="popup__input-error" id="owner-about-error" />
       </div>
 
-      {/* Avatar */}
       <h3 className="popup__subtitle" style={{ marginTop: 8 }}>
         Actualizar avatar
       </h3>

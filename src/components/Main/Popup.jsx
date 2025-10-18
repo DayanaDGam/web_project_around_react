@@ -1,21 +1,28 @@
-export default function Popup({ onClose, title, children }) {
+export default function Popup({ title, children, onClose }) {
   return (
-    <div className="popup popup_opened">   
-      <div className="popup__form">        
+    <div className="popup popup_opened" role="dialog" aria-modal="true">
+      <div className="popup__container">
         <button
-          aria-label="Cerrar ventana modal"
-          className="popup__button_close" 
           type="button"
+          aria-label="Close modal"
+          className="popup__button_close"
           onClick={onClose}
-        />
-        
-        {title && <h3 className="popup__subtitle">{title}</h3>}
+        ></button>
+
+        {title ? <h3 className="popup__title">{title}</h3> : null}
 
         <div className="popup__content">{children}</div>
       </div>
     </div>
   );
 }
+
+
+
+
+
+
+
 
 
 

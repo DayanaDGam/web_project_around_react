@@ -1,4 +1,3 @@
-// src/utils/api.js
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -82,7 +81,6 @@ class Api {
   }
 }
 
-// ✅ Exporta SOLO la instancia
 export const api = new Api({
   baseUrl: "https://around-api.es.tripleten-services.com/v1/",
   headers: {

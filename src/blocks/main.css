@@ -1,4 +1,5 @@
 .main {
+  font-family: "Inter-Black", "Inter", Arial, sans-serif;
   max-width: 880px;
   margin: auto;
   padding-top: 40px;
@@ -48,12 +49,17 @@
 .main__button_edit {
   width: 24px;
   height: 24px;
-  background-image: url("../images/Edit\ Button.svg");
+  border: none;                 
+  background: transparent;
+  background-image: url("../images/Edit Button.svg"); 
   background-repeat: no-repeat;
   background-size: contain;
-  background-color: transparent;
-  border: none;
+  background-position: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .main__button_add {
   width: 120px;
