@@ -1,21 +1,42 @@
+// src/components/Avatar/EditAvatar.jsx
+import { useRef, useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+
 export default function EditAvatar() {
+  const { handleUpdateAvatar, currentUser } = useContext(CurrentUserContext);
+  const inputRef = useRef(null);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const url = inputRef.current?.value?.trim();
+    if (!url) return;
+    // nuestra API espera la URL como string
+    handleUpdateAvatar({ avatar: url });
+    // opcional: limpia el campo
+    inputRef.current.value = "";
+  }
+
   return (
-    <form className="popup__form" name="edit-avatar" id="edit-avatar-form" noValidate>
-      <label className="popup__field">
+    <form className="popup__form" name="avatar-form" onSubmit={handleSubmit} noValidate>
+      <h3 className="popup__subtitle">Actualizar avatar</h3>
+
+      <div className="popup__field">
         <input
-          className="popup__input"
-          id="avatar-input"
-          name="avatar"
+          ref={inputRef}
           type="url"
-          placeholder="https://ejemplo.com/imagen.jpg"
+          name="avatar"
+          className="popup__input"
+          placeholder="URL de tu nueva imagen"
+          defaultValue={currentUser?.avatar || ""}
           required
         />
-        <span className="popup__error" id="avatar-input-error"></span>
-      </label>
+        <span className="popup__input-error" />
+      </div>
 
-      <button className="button popup__button" type="submit">
+      <button className="popup__button_save" type="submit">
         Guardar
       </button>
     </form>
   );
 }
+

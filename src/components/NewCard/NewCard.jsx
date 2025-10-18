@@ -1,33 +1,48 @@
-export default function NewCard() {
+// src/components/NewCard/NewCard.jsx
+import { useState } from "react";
+
+export default function NewCard({ onAddPlaceSubmit, onAfterSubmit }) {
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await onAddPlaceSubmit?.({ name, link });
+    setName("");
+    setLink("");
+    onAfterSubmit?.(); // por si quieres cerrar desde aquí
+  }
+
   return (
-    <form className="popup__form" name="card-form" id="new-card-form" noValidate>
+    <form className="popup__form" onSubmit={handleSubmit} noValidate>
       <label className="popup__field">
         <input
-          className="popup__input popup__input_type_card-name"
-          id="card-name"
-          maxLength="30"
-          minLength="1"
-          name="card-name"
+          className="popup__input"
           placeholder="Título"
+          name="card-name"
+          minLength="1"
+          maxLength="30"
           required
-          type="text"
+          value={name}
+          onChange={e => setName(e.target.value)}
         />
-        <span className="popup__error" id="card-name-error"></span>
+        <span className="popup__input-error" />
       </label>
 
       <label className="popup__field">
         <input
-          className="popup__input popup__input_type_url"
-          id="card-link"
-          name="link"
+          className="popup__input"
           placeholder="Enlace de la imagen"
-          required
+          name="link"
           type="url"
+          required
+          value={link}
+          onChange={e => setLink(e.target.value)}
         />
-        <span className="popup__error" id="card-link-error"></span>
+        <span className="popup__input-error" />
       </label>
 
-      <button className="button popup__button" type="submit">
+      <button className="popup__button popup__button_add" type="submit">
         Guardar
       </button>
     </form>
