@@ -1,4 +1,3 @@
-// src/components/App.jsx
 import { useEffect, useState } from "react";
 import Header from "./Header/Header";
 import Main from "./Main/Main";
@@ -10,13 +9,10 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
-  // estado de tarjetas (ya lo tenemos levantado aquí)
   const [cards, setCards] = useState([]);
 
-  // control del popup genérico
   const [popup, setPopup] = useState(null);
 
-  // ---------- cargar datos iniciales ----------
   useEffect(() => {
     (async () => {
       try {
@@ -32,7 +28,6 @@ export default function App() {
     })();
   }, []);
 
-  // ---------- abrir / cerrar popups ----------
   function handleOpenPopup(p) {
     setPopup(p);
   }
@@ -40,7 +35,6 @@ export default function App() {
     setPopup(null);
   }
 
-  // ---------- perfil ----------
   async function handleUpdateUser({ name, about }) {
     try {
       const newUser = await api.updateUserInfo({ name, about });
@@ -51,7 +45,6 @@ export default function App() {
     }
   }
 
-  // avatar (lo usa EDITPROFILE también)
   async function handleUpdateAvatar(avatarUrl) {
     try {
       const newUser = await api.updateAvatar(avatarUrl);
@@ -62,7 +55,6 @@ export default function App() {
     }
   }
 
-  // ---------- tarjetas ----------
   async function handleCardLike(card) {
     try {
       const toggled = await api.changeLikeCardStatus(card._id, !card.isLiked);

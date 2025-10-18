@@ -1,4 +1,3 @@
-// src/components/Avatar/EditAvatar.jsx
 import { useRef, useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
@@ -10,9 +9,7 @@ export default function EditAvatar() {
     e.preventDefault();
     const url = inputRef.current?.value?.trim();
     if (!url) return;
-    // nuestra API espera la URL como string
     handleUpdateAvatar({ avatar: url });
-    // opcional: limpia el campo
     inputRef.current.value = "";
   }
 

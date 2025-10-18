@@ -1,4 +1,3 @@
-// src/components/Card/Card.jsx
 const noop = () => {};
 
 export default function Card({
@@ -26,7 +25,7 @@ export default function Card({
         aria-label="Delete card"
         className="card__button_trash"
         type="button"
-        onClick={onCardDelete}       // ✅ usa el handler correcto
+        onClick={onCardDelete}    
       />
 
       <div className="card__description">
@@ -35,7 +34,7 @@ export default function Card({
           aria-label="Like card"
           type="button"
           className={cardLikeButtonClassName}
-          onClick={onCardLike}       // ✅ usa el handler correcto
+          onClick={onCardLike}       
         />
       </div>
     </li>

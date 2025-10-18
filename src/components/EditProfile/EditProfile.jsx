@@ -1,18 +1,14 @@
-// src/components/EditProfile/EditProfile.jsx
 import { useState, useEffect, useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 export default function EditProfile() {
-  // viene del Provider en App.jsx
   const { currentUser, handleUpdateUser, handleUpdateAvatar } =
     useContext(CurrentUserContext);
 
-  // estados controlados
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [avatar, setAvatar] = useState("");
 
-  // cuando cambie currentUser, sincroniza el formulario
   useEffect(() => {
     if (!currentUser) return;
     setName(currentUser.name || "");
@@ -22,16 +18,11 @@ export default function EditProfile() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
-      // 1) Actualiza nombre/profesión
       await handleUpdateUser({ name, about });
-
-      // 2) Si cambió el avatar, actualízalo
       if (avatar && avatar !== currentUser?.avatar) {
         await handleUpdateAvatar(avatar);
       }
-      // Nota: en App.jsx ya cierras el popup al terminar la solicitud
     } catch (err) {
       console.error("Error guardando perfil:", err);
     }
@@ -39,9 +30,6 @@ export default function EditProfile() {
 
   return (
     <form className="popup__form" noValidate onSubmit={handleSubmit}>
-      <h2 className="popup__subtitle">Editar perfil</h2>
-
-      {/* Nombre */}
       <div className="popup__field">
         <input
           type="text"
@@ -58,7 +46,6 @@ export default function EditProfile() {
         <span className="popup__input-error" id="owner-name-error" />
       </div>
 
-      {/* Profesión / Acerca de mí */}
       <div className="popup__field">
         <input
           type="text"
@@ -98,4 +85,3 @@ export default function EditProfile() {
     </form>
   );
 }
-

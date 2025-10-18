@@ -1,4 +1,3 @@
-// src/components/Main/Main.jsx
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
@@ -9,8 +8,8 @@ import Card from "../Card/Card.jsx";
 
 export default function Main({
   onOpenPopup,
-  onClosePopup,     // (por si lo necesitas dentro de hijos)
-  popup,            // (por si necesitas leerlo)
+  onClosePopup,     
+  popup,            
   cards,
   onCardLike,
   onCardDelete,
@@ -18,7 +17,6 @@ export default function Main({
 }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  // El popup de edición de perfil ahora incluye nombre, profesión y avatar
   const openEditProfile = () =>
     onOpenPopup({ title: "Editar perfil", children: <EditProfile /> });
 
@@ -28,7 +26,6 @@ export default function Main({
       children: <NewCard onAddPlaceSubmit={onAddPlaceSubmit} />,
     });
 
-  // También el botón de avatar abre el MISMO EditProfile
   const openEditAvatar = openEditProfile;
 
   return (

@@ -1,4 +1,3 @@
-// src/components/RemoveCard/RemoveCard.jsx
 export default function RemoveCard({ onCancel, onConfirm }) {
   function handleSubmit(e) {
     e.preventDefault();

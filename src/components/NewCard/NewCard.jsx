@@ -1,4 +1,3 @@
-// src/components/NewCard/NewCard.jsx
 import { useState } from "react";
 
 export default function NewCard({ onAddPlaceSubmit, onAfterSubmit }) {
@@ -10,7 +9,7 @@ export default function NewCard({ onAddPlaceSubmit, onAfterSubmit }) {
     await onAddPlaceSubmit?.({ name, link });
     setName("");
     setLink("");
-    onAfterSubmit?.(); // por si quieres cerrar desde aquí
+    onAfterSubmit?.(); 
   }
 
   return (
