@@ -1,31 +1,17 @@
-import { useState, useEffect, useContext } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useState, useEffect } from "react";
 
-export default function EditProfile() {
-  const { currentUser, handleUpdateUser, handleUpdateAvatar } =
-    useContext(CurrentUserContext);
-
+export default function EditProfile({ onUpdateUser, currentUser = {} }) {
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
-  const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
-    if (!currentUser) return;
-    setName(currentUser.name || "");
-    setAbout(currentUser.about || "");
-    setAvatar(currentUser.avatar || "");
+    setName(currentUser?.name || "");
+    setAbout(currentUser?.about || "");
   }, [currentUser]);
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    try {
-      await handleUpdateUser({ name, about });
-      if (avatar && avatar !== currentUser?.avatar) {
-        await handleUpdateAvatar(avatar);
-      }
-    } catch (err) {
-      console.error("Error guardando perfil:", err);
-    }
+    onUpdateUser({ name, about });
   }
 
   return (
@@ -34,7 +20,6 @@ export default function EditProfile() {
         <input
           type="text"
           name="name"
-          id="owner-name"
           className="popup__input popup__input_type_name"
           placeholder="Nombre"
           required
@@ -43,14 +28,13 @@ export default function EditProfile() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <span className="popup__input-error" id="owner-name-error" />
+        <span className="popup__input-error" />
       </div>
 
       <div className="popup__field">
         <input
           type="text"
           name="about"
-          id="owner-about"
           className="popup__input popup__input_type_description"
           placeholder="Profesión / Acerca de mí"
           required
@@ -59,23 +43,7 @@ export default function EditProfile() {
           value={about}
           onChange={(e) => setAbout(e.target.value)}
         />
-        <span className="popup__input-error" id="owner-about-error" />
-      </div>
-
-      <h3 className="popup__subtitle" style={{ marginTop: 8 }}>
-        Actualizar avatar
-      </h3>
-      <div className="popup__field">
-        <input
-          type="url"
-          name="avatar"
-          id="owner-avatar"
-          className="popup__input popup__input_type_url"
-          placeholder="https://… (URL de imagen)"
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-        />
-        <span className="popup__input-error" id="owner-avatar-error" />
+        <span className="popup__input-error" />
       </div>
 
       <button type="submit" className="popup__button popup__button_save">
@@ -84,3 +52,4 @@ export default function EditProfile() {
     </form>
   );
 }
+

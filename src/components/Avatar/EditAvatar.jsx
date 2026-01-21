@@ -1,15 +1,17 @@
-import { useRef, useContext } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useRef, useEffect } from "react";
 
-export default function EditAvatar() {
-  const { handleUpdateAvatar, currentUser } = useContext(CurrentUserContext);
+export default function EditAvatar({ onUpdateAvatar, currentAvatar = "" }) {
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.value = currentAvatar || "";
+  }, [currentAvatar]);
 
   function handleSubmit(e) {
     e.preventDefault();
     const url = inputRef.current.value.trim();
     if (!url) return;
-    handleUpdateAvatar({ avatar: url });
+    onUpdateAvatar({ avatar: url });
   }
 
   return (
@@ -23,7 +25,6 @@ export default function EditAvatar() {
           name="avatar"
           className="popup__input"
           placeholder="https://…"
-          defaultValue={currentUser?.avatar || ""}
           required
         />
         <span className="popup__input-error" />

@@ -8,7 +8,7 @@ import EditAvatar from "../Avatar/EditAvatar.jsx";
 import NewCard from "../NewCard/NewCard.jsx";
 import ImagePopup from "../ImagePopup/ImagePopup.jsx";
 import Card from "../Card/Card.jsx";
-import Popup from "./Popup.jsx"; 
+import Popup from "./Popup.jsx";
 
 export default function Main({
   onOpenPopup,
@@ -17,17 +17,19 @@ export default function Main({
   onCardLike,
   onCardDelete,
   onAddPlaceSubmit,
+  onUpdateUser,
+  onUpdateAvatar,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const editProfilePopup = {
     title: "Editar perfil",
-    children: <EditProfile />,
+    children: <EditProfile onUpdateUser={onUpdateUser} />,
   };
 
   const editAvatarPopup = {
     title: "Editar avatar",
-    children: <EditAvatar />,
+    children: <EditAvatar onUpdateAvatar={onUpdateAvatar} />,
   };
 
   const newCardPopup = {
@@ -48,6 +50,14 @@ export default function Main({
             src={currentUser?.avatar || avatarFallback}
             alt="Avatar"
             className="main__profile-image"
+          />
+
+          {/* ✅ Botón/overlay para abrir EditAvatar */}
+          <button
+            type="button"
+            className="main__avatar-edit"
+            onClick={() => onOpenPopup(editAvatarPopup)}
+            aria-label="Editar avatar"
           />
         </div>
 
@@ -98,4 +108,5 @@ export default function Main({
     </main>
   );
 }
+
 

@@ -1,5 +1,6 @@
 .main {
   font-family: "Inter-Black", "Inter", Arial, sans-serif;
+  color:#fff;
   max-width: 880px;
   margin: auto;
   padding-top: 40px;
@@ -14,9 +15,9 @@
   justify-content: center;
 }
 
-.main__paragraph_name {
-  font-size: 42px;
+.main__content-paragraph .main__paragraph_name {
   color: #fff;
+  font-size: 42px;
   line-height: 48px;
   font-weight: 600;
   margin: 0;

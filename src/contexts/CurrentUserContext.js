@@ -1,5 +1,9 @@
 import { createContext } from "react";
 
-const CurrentUserContext = createContext(null);
+const CurrentUserContext = createContext({
+  currentUser: {},
+  handleUpdateUser: () => {},
+  handleUpdateAvatar: () => {},
+});
 
 export default CurrentUserContext;
